@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071a31">
+  <title>{% block title %}CivicConnect AI{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span><span>CivicConnect <b>AI</b></span></a>
+  <nav><a class="{% if request.endpoint == 'home' %}selected{% endif %}" href="{{ url_for('home') }}">Home</a><a class="{% if active|default('') == 'verify' %}selected{% endif %}" href="{{ url_for('verify') }}">Verify</a><a class="{% if active|default('') == 'history' %}selected{% endif %}" href="{{ url_for('history') }}">History</a><a class="{% if active|default('') == 'about' %}selected{% endif %}" href="{{ url_for('about') }}">About</a></nav>
+  <a class="nav-cta" href="{{ url_for('verify') }}">Start a check <span>↗</span></a>
+</header>
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-wrap">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer class="footer"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✳</span><span>CivicConnect <b>AI</b></span></a><span>Verify before you trust.</span><span>Evidence first. Certainty never assumed.</span></footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
